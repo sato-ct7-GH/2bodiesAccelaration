@@ -16,8 +16,8 @@ header{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 100%);color:#fff;pad
 .hdr-title{font-size:18px;font-weight:700;letter-spacing:.5px;}
 .hdr-sub{font-size:12px;opacity:.8;margin-top:4px;min-height:1em;}
 
-.tabs{display:flex;background:#1e3a8a;overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.tab{flex:1;min-width:76px;padding:10px 4px;text-align:center;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;user-select:none;white-space:nowrap;}
+.tabs{display:flex;background:#1e3a8a;max-width:680px;margin:0 auto;padding:0 13px;}
+.tab{flex:1;padding:10px 2px;text-align:center;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;user-select:none;white-space:nowrap;}
 .tab.active{color:#fbbf24;border-bottom-color:#fbbf24;}
 
 .main{max-width:680px;margin:0 auto;padding:14px 13px 70px;}
@@ -183,7 +183,7 @@ header{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 100%);color:#fff;pad
         <line x1="546" y1="416" x2="542" y2="422" stroke="#94a3b8" stroke-width="1.2"/>
       </g>
       <rect id="ob" x="10" y="126" width="540" height="26" fill="rgba(255,255,255,0.93)" rx="6" stroke="#dde3f0" stroke-width="0.8"/>
-      <text x="20" y="144" font-size="12.5" font-weight="bold" font-family="'Noto Sans JP',sans-serif"><tspan id="o1" fill="#2563eb">m₁ = m（物体）</tspan><tspan id="o2" dx="16" fill="#dc2626">m₂ = M（おもり）</tspan><tspan id="o3" dx="16" fill="#64748b" font-size="11">（再生は M = 2m の例）</tspan></text>
+      <text x="20" y="144" font-size="12.5" font-weight="bold" font-family="'Noto Sans JP',sans-serif"><tspan id="o1" fill="#2563eb">m₁ = m（物体）</tspan><tspan id="o2" dx="16" fill="#dc2626">m₂ = M（おもり）</tspan><tspan id="o3" dx="16" fill="#64748b" font-size="11"></tspan></text>
     </svg>
     <div class="btn-row">
       <button id="btn-play" class="btn-primary" onclick="sPlay()">▶ 再生</button>
@@ -224,9 +224,9 @@ var SECDEFS = [
   {id:1, label:'摩擦なし①', fric:false, sub:1, subtitle:'文字計算①（摩擦なし・m,M固定）'},
   {id:2, label:'摩擦なし②', fric:false, sub:2, subtitle:'文字計算②（摩擦なし・質量ランダム）'},
   {id:3, label:'摩擦なし③', fric:false, sub:3, subtitle:'数値計算（摩擦なし）'},
-  {id:4, label:'摩擦あり①', fric:true,  sub:1, subtitle:'文字計算①（摩擦あり・m,M,μ固定）'},
-  {id:5, label:'摩擦あり②', fric:true,  sub:2, subtitle:'文字計算②（摩擦あり・質量ランダム）'},
-  {id:6, label:'摩擦あり③', fric:true,  sub:3, subtitle:'数値計算（摩擦あり）'}
+  {id:4, label:'摩擦あり④', fric:true,  sub:1, subtitle:'文字計算①（摩擦あり・m,M,μ固定）'},
+  {id:5, label:'摩擦あり⑤', fric:true,  sub:2, subtitle:'文字計算②（摩擦あり・質量ランダム）'},
+  {id:6, label:'摩擦あり⑥', fric:true,  sub:3, subtitle:'数値計算（摩擦あり）'}
 ];
 
 // ランダム部分の質量・μパラメータを新規生成
@@ -257,7 +257,7 @@ function buildQuestions(fric, sub, prm) {
     c2 = [{t:'Ma = Mg - T',ok:true},{t:'Ma = T',ok:false},{t:'Ma = Mg + T',ok:false},{t:'Ma = T - Mg',ok:false}];
     c3 = [{t:'a = \\dfrac{M}{m + M}\\,g',ok:true},{t:'a = \\dfrac{m}{m + M}\\,g',ok:false},{t:'a = \\dfrac{m + M}{M}\\,g',ok:false},{t:'a = \\dfrac{M}{m}\\,g',ok:false}];
     c4 = [{t:'T = \\dfrac{mM}{m + M}\\,g',ok:true},{t:'T = Mg',ok:false},{t:'T = mg',ok:false},{t:'T = \\dfrac{M^2}{m + M}\\,g',ok:false}];
-    fig = {m1a:1,m2a:2,muA:0,bl:'m',wl:'M',wgl:'Mg',ffl:'μmg',o1:'m₁ = m（物体）',o2:'m₂ = M（おもり）',o3:'（再生は M = 2m の例）'};
+    fig = {m1a:1,m2a:2,muA:0,bl:'m',wl:'M',wgl:'Mg',ffl:'μmg',o1:'m₁ = m（物体）',o2:'m₂ = M（おもり）',o3:''};
 
   } else if (!fric && sub === 2) {
     var p=prm.p, q=prm.q, s=p+q;
@@ -307,7 +307,7 @@ function buildQuestions(fric, sub, prm) {
     c2 = [{t:'Ma = Mg - T',ok:true},{t:'Ma = T',ok:false},{t:'Ma = Mg + T',ok:false},{t:'Ma = Mg - T - \\mu mg',ok:false}];
     c3 = [{t:'a = \\dfrac{M - \\mu m}{m + M}\\,g',ok:true},{t:'a = \\dfrac{M + \\mu m}{m + M}\\,g',ok:false},{t:'a = \\dfrac{M}{m + M}\\,g',ok:false},{t:'a = \\dfrac{m - \\mu M}{m + M}\\,g',ok:false}];
     c4 = [{t:'T = \\dfrac{mM(1 + \\mu)}{m + M}\\,g',ok:true},{t:'T = \\dfrac{mM(1 - \\mu)}{m + M}\\,g',ok:false},{t:'T = \\dfrac{mM}{m + M}\\,g',ok:false},{t:'T = Mg',ok:false}];
-    fig = {m1a:1,m2a:2,muA:MU_ANIM,bl:'m',wl:'M',wgl:'Mg',ffl:'μmg',o1:'m₁ = m（物体）',o2:'m₂ = M（おもり）',o3:'（再生は M = 2m, μ = 0.3 の例）'};
+    fig = {m1a:1,m2a:2,muA:MU_ANIM,bl:'m',wl:'M',wgl:'Mg',ffl:'μmg',o1:'m₁ = m（物体）',o2:'m₂ = M（おもり）',o3:''};
 
   } else if (fric && sub === 2) {
     var p2=prm.p, q2=prm.q, s2=p2+q2;
@@ -330,7 +330,7 @@ function buildQuestions(fric, sub, prm) {
     var wrong3f = pick3Keys(cor3.key,cand3);
     c3 = [{t:'a = '+cor3.tex,ok:true}].concat(wrong3f.map(function(c){return {t:'a = '+c.tex,ok:false};}));
     c4 = [{t:'T = '+cor4tex,ok:true},{t:'T = '+fracOneMu(p2*q2,s2,'-'),ok:false},{t:'T = '+fracU(p2*q2,s2,'mg'),ok:false},{t:'T = '+cm(q2)+'g',ok:false}];
-    fig = {m1a:p2,m2a:q2,muA:MU_ANIM,bl:cm(p2),wl:cm(q2),wgl:cm(q2)+'g',ffl:(p2===1?'':p2)+'μmg',o1:'m₁ = '+cm(p2)+'（物体）',o2:'m₂ = '+cm(q2)+'（おもり）',o3:'（再生は μ = 0.3 の例）'};
+    fig = {m1a:p2,m2a:q2,muA:MU_ANIM,bl:cm(p2),wl:cm(q2),wgl:cm(q2)+'g',ffl:(p2===1?'':p2)+'μmg',o1:'m₁ = '+cm(p2)+'（物体）',o2:'m₂ = '+cm(q2)+'（おもり）',o3:''};
 
   } else {
     var Xf=prm.X, Yf=prm.Y, muF=prm.mu, kF=prm.k, Sf=Xf+Yf, avf=kF*G/Sf, tvf=Xf*avf+muF*Xf*G;
